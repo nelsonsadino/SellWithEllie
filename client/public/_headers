@@ -1,0 +1,23 @@
+# Security + caching headers for the built SPA.
+# Format: Netlify / Cloudflare Pages. Vite copies this file verbatim into dist/.
+# For other hosts (nginx, Azure Static Web Apps, S3+CloudFront) see SECURITY.md.
+#
+# Replace the https: wildcards in connect-src / img-src / media-src with your
+# actual API and blob-storage origins before going to production, e.g.
+#   connect-src 'self' https://api.sellwithellie.example wss://api.sellwithellie.example;
+#   img-src 'self' data: https://sellwitheliemedia.blob.core.windows.net;
+
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob: https:; media-src 'self' blob: https:; connect-src 'self' https: wss:; frame-ancestors 'none'; base-uri 'none'; object-src 'none'; form-action 'self'
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: accelerometer=(), autoplay=(), camera=(), display-capture=(), geolocation=(), gyroscope=(), microphone=(), payment=(), usb=()
+  Cross-Origin-Opener-Policy: same-origin
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/index.html
+  Cache-Control: no-cache

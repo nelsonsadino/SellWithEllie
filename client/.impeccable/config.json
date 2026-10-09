@@ -1,0 +1,14 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "bounce-easing",
+        "value": "raffle-race-finish-bounce",
+        "createdAt": "2026-09-20T14:13:21.566Z",
+        "reason": "Intentional celebratory scale-pulse on the winning duck at raffle finish line, not generic UI easing — domain-appropriate win-celebration motion for the raffle draw feature."
+      }
+    ]
+  }
+}

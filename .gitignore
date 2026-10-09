@@ -1,0 +1,31 @@
+# .NET
+bin/
+obj/
+*.user
+server/appsettings.Development.json
+server/appsettings.Production.json
+server/logs/
+
+# Node
+node_modules/
+dist/
+dist-ssr/
+*.local
+
+# Env
+.env
+.env.local
+
+# IDE
+.vs/
+.vscode/
+*.suo
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Tooling scratch
+.playwright-mcp/
+*.tmp

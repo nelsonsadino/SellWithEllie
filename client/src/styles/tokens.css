@@ -1,0 +1,1166 @@
+/* ============================================================================
+   Design tokens
+   ----------------------------------------------------------------------------
+   Flagship template (key: marketstall): "The Specimen Cabinet" - a natural-
+   history specimen hall. Every listing reads as an accessioned vitrine
+   specimen: parchment and ink-teal ground, aged-brass hardware, one crimson
+   reserved strictly for the live/urgent state. Direction contract:
+   .impeccable/surfaces/client-src-pages-homepage-jsx.md (seed key 7f38a07a).
+
+   Templates are token-override sets keyed off  data-theme-template  on <html>
+   (warmwood, mono, petshop, sarisari, fashion, tech, autoparts, hobby). Each
+   swaps colour + type + radius; the layout in theme.css stays shared.
+
+   Light / dark is orthogonal, keyed off  data-theme  on <html>
+   ( absent -> follow OS ). Each dark block re-declares the full colour set.
+   ========================================================================== */
+
+:root {
+  /* ---- Type / space / motion (not themed) ----------------------------- */
+  --font-body: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-display: 'Prata', 'Georgia', 'Times New Roman', serif;
+  --font-heading: var(--font-display);
+  --font-label: 'Archivo', 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'Menlo', monospace;
+
+  --step--1: 0.8125rem;
+  --step-0: 1rem;
+  --step-1: 1.125rem;
+  --step-2: 1.375rem;
+  --step-3: clamp(1.5rem, 1.2rem + 1.4vw, 2rem);
+  --step-4: clamp(1.9rem, 1.4rem + 2.4vw, 2.75rem);
+  --step-5: clamp(2.4rem, 1.7rem + 2.6vw, 3.5rem);
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4.5rem;
+  --space-9: 6.5rem;
+
+  --max-width: 1200px;
+  --border-thin: 1px;
+  --border-heavy: 2px;
+
+  --transition-fast: 0.15s ease;
+  --transition-base: 0.28s cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  /* ---- marketstall ("The Specimen Cabinet") / light -------------------
+     Natural-history specimen hall: warm parchment ground, deep ink-teal
+     ink, aged-brass hardware, one reserved crimson for anything live. */
+  --color-bg: #f2ead9;
+  --color-surface: #fbf7ee;
+  --color-surface-sunken: #e8ddc4;
+  --color-text: #17302e;
+  --color-text-muted: #6b5a3a;
+  --color-border: #ddccA0;
+  --color-border-strong: #1b3a3f;
+
+  --color-primary: #1b3a3f; /* deep ink-teal - primary actions / links */
+  --color-primary-dark: #102625;
+  --color-primary-contrast: #f2ead9;
+
+  --color-accent: #9c7a34; /* aged brass - secondary highlight / hardware */
+  --color-accent-dark: #7a5f28;
+
+  --color-live: #8c2f2f; /* reserved crimson - "live" / "ending soon" only */
+  --color-live-strong: #a83a3a;
+  --color-live-bg: #f3e2df;
+
+  --color-up: #3f6b3f; /* bid up / in stock / positive */
+  --color-up-bg: #e6ede0;
+
+  --color-gold: #9c7a34; /* buyout / winning */
+  --color-gold-bg: #f3ecd6;
+
+  --color-danger: #8c2f2f;
+  --color-danger-bg: #f3e2df;
+  --color-success: #3f6b3f;
+  --color-success-bg: #e6ede0;
+  --color-muted-bg: #e8ddc4;
+
+  --radius-sm: 2px;
+  --radius-md: 3px;
+  --radius-lg: 4px;
+  --radius-pill: 2px;
+
+  --shadow-card: 0 1px 0 rgba(27, 58, 63, 0.1), 0 10px 22px -14px rgba(27, 58, 63, 0.28);
+  --shadow-sm: 0 1px 2px rgba(27, 58, 63, 0.1);
+  --shadow-pop: 0 24px 60px -18px rgba(27, 58, 63, 0.38), 0 4px 12px rgba(27, 58, 63, 0.16);
+  --focus-ring: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-primary);
+
+  color-scheme: light;
+  font-family: var(--font-body);
+}
+
+/* ---- marketstall / dark ------------------------------------------------ */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --color-bg: #0f1d1c;
+    --color-surface: #16302d;
+    --color-surface-sunken: #1c3a35;
+    --color-text: #ede4cf;
+    --color-text-muted: #b3a37a;
+    --color-border: #2c4a44;
+    --color-border-strong: #ede4cf;
+
+    --color-primary: #6fb0a3;
+    --color-primary-dark: #8fc4b8;
+    --color-primary-contrast: #0c1a19;
+
+    --color-accent: #d4a83f;
+    --color-accent-dark: #e6bd5c;
+
+    --color-live: #ff6b5c;
+    --color-live-strong: #ff6b5c;
+    --color-live-bg: rgba(255, 107, 92, 0.15);
+
+    --color-up: #6fb87e;
+    --color-up-bg: rgba(111, 184, 126, 0.15);
+
+    --color-gold: #d4a83f;
+    --color-gold-bg: rgba(212, 168, 63, 0.15);
+
+    --color-danger: #ff6b5c;
+    --color-danger-bg: rgba(255, 107, 92, 0.15);
+    --color-success: #6fb87e;
+    --color-success-bg: rgba(111, 184, 126, 0.15);
+    --color-muted-bg: #1c3a35;
+
+    --shadow-card: 0 1px 0 rgba(0, 0, 0, 0.3), 0 10px 24px -14px rgba(0, 0, 0, 0.55);
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow-pop: 0 24px 70px -16px rgba(0, 0, 0, 0.7), 0 4px 14px rgba(0, 0, 0, 0.5);
+    --focus-ring: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-primary);
+
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme='dark'] {
+  --color-bg: #0f1d1c;
+  --color-surface: #16302d;
+  --color-surface-sunken: #1c3a35;
+  --color-text: #ede4cf;
+  --color-text-muted: #b3a37a;
+  --color-border: #2c4a44;
+  --color-border-strong: #ede4cf;
+
+  --color-primary: #6fb0a3;
+  --color-primary-dark: #8fc4b8;
+  --color-primary-contrast: #0c1a19;
+
+  --color-accent: #d4a83f;
+  --color-accent-dark: #e6bd5c;
+
+  --color-live: #ff6b5c;
+  --color-live-strong: #ff6b5c;
+  --color-live-bg: rgba(255, 107, 92, 0.15);
+
+  --color-up: #6fb87e;
+  --color-up-bg: rgba(111, 184, 126, 0.15);
+
+  --color-gold: #d4a83f;
+  --color-gold-bg: rgba(212, 168, 63, 0.15);
+
+  --color-danger: #ff6b5c;
+  --color-danger-bg: rgba(255, 107, 92, 0.15);
+  --color-success: #6fb87e;
+  --color-success-bg: rgba(111, 184, 126, 0.15);
+  --color-muted-bg: #1c3a35;
+
+  --shadow-card: 0 1px 0 rgba(0, 0, 0, 0.3), 0 10px 24px -14px rgba(0, 0, 0, 0.55);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-pop: 0 24px 70px -16px rgba(0, 0, 0, 0.7), 0 4px 14px rgba(0, 0, 0, 0.5);
+  --focus-ring: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-primary);
+
+  color-scheme: dark;
+}
+
+/* ==========================================================================
+   Template: warmwood  - warm, rounded, soft-shadowed
+   ========================================================================== */
+:root[data-theme-template='warmwood'] {
+  --font-display: 'Piazzolla', 'Georgia', 'Times New Roman', serif;
+  --font-heading: 'Piazzolla', 'Georgia', serif;
+  --font-body: 'Inter', 'Segoe UI', system-ui, sans-serif;
+
+  --color-bg: #fbf6ee;
+  --color-surface: #ffffff;
+  --color-surface-sunken: #f0e7d8;
+  --color-text: #2b241d;
+  --color-text-muted: #6f6454;
+  --color-border: #e7d9c4;
+  --color-border-strong: #d0bb98;
+
+  --color-primary: #1f7a5c;
+  --color-primary-dark: #145c44;
+  --color-primary-contrast: #ffffff;
+
+  --color-accent: #c2631f;
+  --color-accent-dark: #9e4e13;
+
+  --color-live: #c2412f;
+  --color-live-strong: #d9553f;
+  --color-live-bg: #fbe9e6;
+
+  --color-up: #2f8a4b;
+  --color-up-bg: #e5f4e9;
+
+  --color-gold: #9a7b1f;
+  --color-gold-bg: #f5ebd3;
+
+  --color-danger: #c2412f;
+  --color-danger-bg: #fbe9e6;
+  --color-success: #2f8a4b;
+  --color-success-bg: #e5f4e9;
+  --color-muted-bg: #f0e7d8;
+
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-pill: 999px;
+
+  --shadow-card: 0 2px 10px rgba(43, 36, 29, 0.08);
+  --shadow-pop: 0 20px 44px -12px rgba(43, 36, 29, 0.28);
+  --focus-ring: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-primary);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-theme-template='warmwood']:not([data-theme='light']) {
+    --color-bg: #17130e;
+    --color-surface: #211c15;
+    --color-surface-sunken: #2a2318;
+    --color-text: #f2eadd;
+    --color-text-muted: #b3a48c;
+    --color-border: #3a3123;
+    --color-border-strong: #6a5a3f;
+
+    --color-primary: #43b98c;
+    --color-primary-dark: #63c9a0;
+    --color-primary-contrast: #08130e;
+
+    --color-accent: #e0913c;
+    --color-accent-dark: #efa55a;
+
+    --color-live: #ff6f5c;
+    --color-live-strong: #ff6f5c;
+    --color-live-bg: rgba(255, 111, 92, 0.14);
+
+    --color-up: #5fbe7e;
+    --color-up-bg: rgba(95, 190, 126, 0.14);
+
+    --color-gold: #dfb95a;
+    --color-gold-bg: rgba(223, 185, 90, 0.14);
+
+    --color-danger: #f1836f;
+    --color-danger-bg: rgba(241, 131, 111, 0.14);
+    --color-success: #5fbe7e;
+    --color-success-bg: rgba(95, 190, 126, 0.14);
+    --color-muted-bg: #2a2318;
+
+    --shadow-card: 0 2px 10px rgba(0, 0, 0, 0.4);
+    --shadow-pop: 0 22px 50px -14px rgba(0, 0, 0, 0.6);
+  }
+}
+
+:root[data-theme-template='warmwood'][data-theme='dark'] {
+  --color-bg: #17130e;
+  --color-surface: #211c15;
+  --color-surface-sunken: #2a2318;
+  --color-text: #f2eadd;
+  --color-text-muted: #b3a48c;
+  --color-border: #3a3123;
+  --color-border-strong: #6a5a3f;
+
+  --color-primary: #43b98c;
+  --color-primary-dark: #63c9a0;
+  --color-primary-contrast: #08130e;
+
+  --color-accent: #e0913c;
+  --color-accent-dark: #efa55a;
+
+  --color-live: #ff6f5c;
+  --color-live-strong: #ff6f5c;
+  --color-live-bg: rgba(255, 111, 92, 0.14);
+
+  --color-up: #5fbe7e;
+  --color-up-bg: rgba(95, 190, 126, 0.14);
+
+  --color-gold: #dfb95a;
+  --color-gold-bg: rgba(223, 185, 90, 0.14);
+
+  --color-danger: #f1836f;
+  --color-danger-bg: rgba(241, 131, 111, 0.14);
+  --color-success: #5fbe7e;
+  --color-success-bg: rgba(95, 190, 126, 0.14);
+  --color-muted-bg: #2a2318;
+
+  --shadow-card: 0 2px 10px rgba(0, 0, 0, 0.4);
+  --shadow-pop: 0 22px 50px -14px rgba(0, 0, 0, 0.6);
+}
+
+/* ==========================================================================
+   Template: mono  - black / white, single ink accent, zero radius
+   ========================================================================== */
+:root[data-theme-template='mono'] {
+  --font-display: 'Schibsted Grotesk', 'Arial Narrow', system-ui, sans-serif;
+  --font-heading: 'Schibsted Grotesk', system-ui, sans-serif;
+  --font-body: 'Schibsted Grotesk', system-ui, sans-serif;
+  --font-mono: 'Martian Mono', ui-monospace, 'SFMono-Regular', monospace;
+
+  --color-bg: #ffffff;
+  --color-surface: #ffffff;
+  --color-surface-sunken: #f2f2f2;
+  --color-text: #0a0a0a;
+  --color-text-muted: #5a5a5a;
+  --color-border: #d6d6d6;
+  --color-border-strong: #0a0a0a;
+
+  --color-primary: #0a0a0a;
+  --color-primary-dark: #000000;
+  --color-primary-contrast: #ffffff;
+
+  --color-accent: #4a4a4a;
+  --color-accent-dark: #000000;
+
+  --color-live: #a61b0e;
+  --color-live-strong: #a61b0e;
+  --color-live-bg: #f4e4e2;
+
+  --color-up: #1f5c33;
+  --color-up-bg: #e6efe9;
+
+  --color-gold: #4a4a4a;
+  --color-gold-bg: #ededed;
+
+  --color-danger: #a61b0e;
+  --color-danger-bg: #f4e4e2;
+  --color-success: #1f5c33;
+  --color-success-bg: #e6efe9;
+  --color-muted-bg: #f2f2f2;
+
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-pill: 0px;
+
+  --shadow-card: none;
+  --shadow-pop: 6px 6px 0 0 #0a0a0a;
+  --focus-ring: 0 0 0 2px #ffffff, 0 0 0 4px #0a0a0a;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-theme-template='mono']:not([data-theme='light']) {
+    --color-bg: #0a0a0a;
+    --color-surface: #0a0a0a;
+    --color-surface-sunken: #1a1a1a;
+    --color-text: #fafafa;
+    --color-text-muted: #a3a3a3;
+    --color-border: #333333;
+    --color-border-strong: #fafafa;
+
+    --color-primary: #fafafa;
+    --color-primary-dark: #ffffff;
+    --color-primary-contrast: #0a0a0a;
+
+    --color-accent: #a3a3a3;
+    --color-accent-dark: #ffffff;
+
+    --color-live: #ff5a4d;
+    --color-live-strong: #ff5a4d;
+    --color-live-bg: rgba(255, 90, 77, 0.16);
+
+    --color-up: #57c07d;
+    --color-up-bg: rgba(87, 192, 125, 0.16);
+
+    --color-gold: #a3a3a3;
+    --color-gold-bg: #1f1f1f;
+
+    --color-danger: #ff5a4d;
+    --color-danger-bg: rgba(255, 90, 77, 0.16);
+    --color-success: #57c07d;
+    --color-success-bg: rgba(87, 192, 125, 0.16);
+    --color-muted-bg: #1a1a1a;
+
+    --shadow-pop: 6px 6px 0 0 #fafafa;
+    --focus-ring: 0 0 0 2px #0a0a0a, 0 0 0 4px #fafafa;
+  }
+}
+
+:root[data-theme-template='mono'][data-theme='dark'] {
+  --color-bg: #0a0a0a;
+  --color-surface: #0a0a0a;
+  --color-surface-sunken: #1a1a1a;
+  --color-text: #fafafa;
+  --color-text-muted: #a3a3a3;
+  --color-border: #333333;
+  --color-border-strong: #fafafa;
+
+  --color-primary: #fafafa;
+  --color-primary-dark: #ffffff;
+  --color-primary-contrast: #0a0a0a;
+
+  --color-accent: #a3a3a3;
+  --color-accent-dark: #ffffff;
+
+  --color-live: #ff5a4d;
+  --color-live-strong: #ff5a4d;
+  --color-live-bg: rgba(255, 90, 77, 0.16);
+
+  --color-up: #57c07d;
+  --color-up-bg: rgba(87, 192, 125, 0.16);
+
+  --color-gold: #a3a3a3;
+  --color-gold-bg: #1f1f1f;
+
+  --color-danger: #ff5a4d;
+  --color-danger-bg: rgba(255, 90, 77, 0.16);
+  --color-success: #57c07d;
+  --color-success-bg: rgba(87, 192, 125, 0.16);
+  --color-muted-bg: #1a1a1a;
+
+  --shadow-pop: 6px 6px 0 0 #fafafa;
+  --focus-ring: 0 0 0 2px #0a0a0a, 0 0 0 4px #fafafa;
+}
+
+/* ==========================================================================
+   Template: petshop  - friendly vet-boutique: teal + coral, rounded, soft
+   ========================================================================== */
+:root[data-theme-template='petshop'] {
+  --font-display: 'Baloo 2', 'Trebuchet MS', system-ui, sans-serif;
+  --font-heading: 'Baloo 2', system-ui, sans-serif;
+  --font-body: 'Nunito Sans', 'Segoe UI', system-ui, sans-serif;
+
+  --color-bg: #fcf9f4;
+  --color-surface: #ffffff;
+  --color-surface-sunken: #f0ebe1;
+  --color-text: #2a2320;
+  --color-text-muted: #6b6156;
+  --color-border: #e7ded0;
+  --color-border-strong: #2a2320;
+
+  --color-primary: #0e8a8a;
+  --color-primary-dark: #0a6b6b;
+  --color-primary-contrast: #ffffff;
+
+  --color-accent: #f2683f;
+  --color-accent-dark: #d24e28;
+
+  --color-live: #e04f2a;
+  --color-live-strong: #f2683f;
+  --color-live-bg: #fdeee7;
+
+  --color-up: #3a9d5c;
+  --color-up-bg: #e6f4ea;
+
+  --color-gold: #c58a2e;
+  --color-gold-bg: #f7eede;
+
+  --color-danger: #d13b2a;
+  --color-danger-bg: #fbe8e4;
+  --color-success: #3a9d5c;
+  --color-success-bg: #e6f4ea;
+  --color-muted-bg: #f0ebe1;
+
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+  --radius-pill: 999px;
+
+  --shadow-card: 0 2px 10px rgba(42, 35, 32, 0.08);
+  --shadow-pop: 0 20px 44px -12px rgba(42, 35, 32, 0.26);
+  --focus-ring: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-primary);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-theme-template='petshop']:not([data-theme='light']) {
+    --color-bg: #12100e;
+    --color-surface: #1c1916;
+    --color-surface-sunken: #262119;
+    --color-text: #f3ede4;
+    --color-text-muted: #ab9f8f;
+    --color-border: #332c22;
+    --color-border-strong: #f3ede4;
+
+    --color-primary: #3fc7c7;
+    --color-primary-dark: #63d6d6;
+    --color-primary-contrast: #08201f;
+
+    --color-accent: #ff8a5e;
+    --color-accent-dark: #ffa77f;
+
+    --color-live: #ff7a52;
+    --color-live-strong: #ff7a52;
+    --color-live-bg: rgba(255, 122, 82, 0.14);
+
+    --color-up: #5cc47f;
+    --color-up-bg: rgba(92, 196, 127, 0.14);
+
+    --color-gold: #e0b45a;
+    --color-gold-bg: rgba(224, 180, 90, 0.14);
+
+    --color-danger: #ff7a5c;
+    --color-danger-bg: rgba(255, 122, 92, 0.14);
+    --color-success: #5cc47f;
+    --color-success-bg: rgba(92, 196, 127, 0.14);
+    --color-muted-bg: #262119;
+
+    --shadow-card: 0 2px 10px rgba(0, 0, 0, 0.4);
+    --shadow-pop: 0 22px 50px -14px rgba(0, 0, 0, 0.6);
+  }
+}
+
+:root[data-theme-template='petshop'][data-theme='dark'] {
+  --color-bg: #12100e;
+  --color-surface: #1c1916;
+  --color-surface-sunken: #262119;
+  --color-text: #f3ede4;
+  --color-text-muted: #ab9f8f;
+  --color-border: #332c22;
+  --color-border-strong: #f3ede4;
+
+  --color-primary: #3fc7c7;
+  --color-primary-dark: #63d6d6;
+  --color-primary-contrast: #08201f;
+
+  --color-accent: #ff8a5e;
+  --color-accent-dark: #ffa77f;
+
+  --color-live: #ff7a52;
+  --color-live-strong: #ff7a52;
+  --color-live-bg: rgba(255, 122, 82, 0.14);
+
+  --color-up: #5cc47f;
+  --color-up-bg: rgba(92, 196, 127, 0.14);
+
+  --color-gold: #e0b45a;
+  --color-gold-bg: rgba(224, 180, 90, 0.14);
+
+  --color-danger: #ff7a5c;
+  --color-danger-bg: rgba(255, 122, 92, 0.14);
+  --color-success: #5cc47f;
+  --color-success-bg: rgba(92, 196, 127, 0.14);
+  --color-muted-bg: #262119;
+
+  --shadow-card: 0 2px 10px rgba(0, 0, 0, 0.4);
+  --shadow-pop: 0 22px 50px -14px rgba(0, 0, 0, 0.6);
+}
+
+/* ==========================================================================
+   Template: sarisari  - Filipino corner store: bright yellow ground, soda-red
+   heads, signage blue. Loud, local, cheerful.
+   ========================================================================== */
+:root[data-theme-template='sarisari'] {
+  --font-display: 'Anton', 'Arial Narrow', 'Impact', system-ui, sans-serif;
+  --font-heading: 'Anton', 'Impact', system-ui, sans-serif;
+  --font-body: 'Archivo', 'Segoe UI', system-ui, sans-serif;
+
+  --color-bg: #fff8e6;
+  --color-surface: #ffffff;
+  --color-surface-sunken: #ffefc4;
+  --color-text: #221d14;
+  --color-text-muted: #6e5f3f;
+  --color-border: #f0dfa8;
+  --color-border-strong: #221d14;
+
+  --color-primary: #d6262b;
+  --color-primary-dark: #a81c20;
+  --color-primary-contrast: #ffffff;
+
+  --color-accent: #1f6fd6;
+  --color-accent-dark: #175bb0;
+
+  --color-live: #d6262b;
+  --color-live-strong: #e8332f;
+  --color-live-bg: #fbe2df;
+
+  --color-up: #1f8a3b;
+  --color-up-bg: #e2f3e6;
+
+  --color-gold: #b98a00;
+  --color-gold-bg: #fff2cc;
+
+  --color-danger: #c21f1f;
+  --color-danger-bg: #fbe2df;
+  --color-success: #1f8a3b;
+  --color-success-bg: #e2f3e6;
+  --color-muted-bg: #ffefc4;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-pill: 999px;
+
+  --shadow-card: 0 2px 0 0 rgba(34, 29, 20, 0.14);
+  --shadow-pop: 0 18px 40px -12px rgba(34, 29, 20, 0.3);
+  --focus-ring: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-primary);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-theme-template='sarisari']:not([data-theme='light']) {
+    --color-bg: #17120a;
+    --color-surface: #221a0c;
+    --color-surface-sunken: #2c2210;
+    --color-text: #fdf6df;
+    --color-text-muted: #b7a888;
+    --color-border: #3d3116;
+    --color-border-strong: #fdf6df;
+
+    --color-primary: #ff5a52;
+    --color-primary-dark: #ff7a72;
+    --color-primary-contrast: #1c0d0c;
+
+    --color-accent: #4d9bff;
+    --color-accent-dark: #6fb0ff;
+
+    --color-live: #ff5a52;
+    --color-live-strong: #ff5a52;
+    --color-live-bg: rgba(255, 90, 82, 0.15);
+
+    --color-up: #4fc06a;
+    --color-up-bg: rgba(79, 192, 106, 0.15);
+
+    --color-gold: #ffcf3f;
+    --color-gold-bg: rgba(255, 207, 63, 0.15);
+
+    --color-danger: #ff6a5c;
+    --color-danger-bg: rgba(255, 106, 92, 0.15);
+    --color-success: #4fc06a;
+    --color-success-bg: rgba(79, 192, 106, 0.15);
+    --color-muted-bg: #2c2210;
+
+    --shadow-card: 0 2px 0 0 rgba(0, 0, 0, 0.5);
+    --shadow-pop: 0 20px 46px -12px rgba(0, 0, 0, 0.6);
+  }
+}
+
+:root[data-theme-template='sarisari'][data-theme='dark'] {
+  --color-bg: #17120a;
+  --color-surface: #221a0c;
+  --color-surface-sunken: #2c2210;
+  --color-text: #fdf6df;
+  --color-text-muted: #b7a888;
+  --color-border: #3d3116;
+  --color-border-strong: #fdf6df;
+
+  --color-primary: #ff5a52;
+  --color-primary-dark: #ff7a72;
+  --color-primary-contrast: #1c0d0c;
+
+  --color-accent: #4d9bff;
+  --color-accent-dark: #6fb0ff;
+
+  --color-live: #ff5a52;
+  --color-live-strong: #ff5a52;
+  --color-live-bg: rgba(255, 90, 82, 0.15);
+
+  --color-up: #4fc06a;
+  --color-up-bg: rgba(79, 192, 106, 0.15);
+
+  --color-gold: #ffcf3f;
+  --color-gold-bg: rgba(255, 207, 63, 0.15);
+
+  --color-danger: #ff6a5c;
+  --color-danger-bg: rgba(255, 106, 92, 0.15);
+  --color-success: #4fc06a;
+  --color-success-bg: rgba(79, 192, 106, 0.15);
+  --color-muted-bg: #2c2210;
+
+  --shadow-card: 0 2px 0 0 rgba(0, 0, 0, 0.5);
+  --shadow-pop: 0 20px 46px -12px rgba(0, 0, 0, 0.6);
+}
+
+/* ==========================================================================
+   Template: fashion  - editorial boutique: ivory, near-black, book serif
+   headings, one oxblood accent, sharp corners, big air.
+   ========================================================================== */
+:root[data-theme-template='fashion'] {
+  --font-display: 'Bodoni Moda', 'Times New Roman', 'Georgia', serif;
+  --font-heading: 'Bodoni Moda', 'Georgia', serif;
+  --font-body: 'Jost', 'Futura', 'Century Gothic', system-ui, sans-serif;
+
+  --color-bg: #f7f5f2;
+  --color-surface: #ffffff;
+  --color-surface-sunken: #eeeae4;
+  --color-text: #17150f;
+  --color-text-muted: #6b6459;
+  --color-border: #e6e1d8;
+  --color-border-strong: #17150f;
+
+  --color-primary: #17150f;
+  --color-primary-dark: #000000;
+  --color-primary-contrast: #ffffff;
+
+  --color-accent: #7d2a3b;
+  --color-accent-dark: #5e1f2c;
+
+  --color-live: #7d2a3b;
+  --color-live-strong: #9a3145;
+  --color-live-bg: #f3e6e9;
+
+  --color-up: #4a6b4a;
+  --color-up-bg: #e9efe9;
+
+  --color-gold: #9a7b3f;
+  --color-gold-bg: #f3ecdd;
+
+  --color-danger: #9a2f2f;
+  --color-danger-bg: #f4e4e4;
+  --color-success: #4a6b4a;
+  --color-success-bg: #e9efe9;
+  --color-muted-bg: #eeeae4;
+
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-pill: 0px;
+
+  --shadow-card: none;
+  --shadow-pop: 0 30px 70px -20px rgba(23, 21, 15, 0.4);
+  --focus-ring: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-primary);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-theme-template='fashion']:not([data-theme='light']) {
+    --color-bg: #0e0d0c;
+    --color-surface: #161513;
+    --color-surface-sunken: #1e1c19;
+    --color-text: #f4f1eb;
+    --color-text-muted: #a49d90;
+    --color-border: #2b2925;
+    --color-border-strong: #f4f1eb;
+
+    --color-primary: #f4f1eb;
+    --color-primary-dark: #ffffff;
+    --color-primary-contrast: #0e0d0c;
+
+    --color-accent: #c77689;
+    --color-accent-dark: #d892a2;
+
+    --color-live: #c77689;
+    --color-live-strong: #c77689;
+    --color-live-bg: rgba(199, 118, 137, 0.16);
+
+    --color-up: #7fa07f;
+    --color-up-bg: rgba(127, 160, 127, 0.16);
+
+    --color-gold: #c7a878;
+    --color-gold-bg: rgba(199, 168, 120, 0.16);
+
+    --color-danger: #d98a8a;
+    --color-danger-bg: rgba(217, 138, 138, 0.16);
+    --color-success: #7fa07f;
+    --color-success-bg: rgba(127, 160, 127, 0.16);
+    --color-muted-bg: #1e1c19;
+
+    --shadow-pop: 0 30px 80px -18px rgba(0, 0, 0, 0.7);
+  }
+}
+
+:root[data-theme-template='fashion'][data-theme='dark'] {
+  --color-bg: #0e0d0c;
+  --color-surface: #161513;
+  --color-surface-sunken: #1e1c19;
+  --color-text: #f4f1eb;
+  --color-text-muted: #a49d90;
+  --color-border: #2b2925;
+  --color-border-strong: #f4f1eb;
+
+  --color-primary: #f4f1eb;
+  --color-primary-dark: #ffffff;
+  --color-primary-contrast: #0e0d0c;
+
+  --color-accent: #c77689;
+  --color-accent-dark: #d892a2;
+
+  --color-live: #c77689;
+  --color-live-strong: #c77689;
+  --color-live-bg: rgba(199, 118, 137, 0.16);
+
+  --color-up: #7fa07f;
+  --color-up-bg: rgba(127, 160, 127, 0.16);
+
+  --color-gold: #c7a878;
+  --color-gold-bg: rgba(199, 168, 120, 0.16);
+
+  --color-danger: #d98a8a;
+  --color-danger-bg: rgba(217, 138, 138, 0.16);
+  --color-success: #7fa07f;
+  --color-success-bg: rgba(127, 160, 127, 0.16);
+  --color-muted-bg: #1e1c19;
+
+  --shadow-pop: 0 30px 80px -18px rgba(0, 0, 0, 0.7);
+}
+
+/* ==========================================================================
+   Template: tech  - engineered: cool greys, electric blue, monospace headings,
+   razor corners. Dark-first identity.
+   ========================================================================== */
+:root[data-theme-template='tech'] {
+  --font-display: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', monospace;
+  --font-heading: 'JetBrains Mono', ui-monospace, monospace;
+  --font-body: 'Public Sans', 'Segoe UI', system-ui, sans-serif;
+
+  --color-bg: #f4f6f8;
+  --color-surface: #ffffff;
+  --color-surface-sunken: #e9edf1;
+  --color-text: #0f1419;
+  --color-text-muted: #5a6472;
+  --color-border: #dbe1e8;
+  --color-border-strong: #0f1419;
+
+  --color-primary: #0b62f6;
+  --color-primary-dark: #0a4fc7;
+  --color-primary-contrast: #ffffff;
+
+  --color-accent: #0899b8;
+  --color-accent-dark: #067890;
+
+  --color-live: #e5484d;
+  --color-live-strong: #e5484d;
+  --color-live-bg: #fbe7e8;
+
+  --color-up: #129a6e;
+  --color-up-bg: #e2f4ee;
+
+  --color-gold: #a9791f;
+  --color-gold-bg: #f4ecdc;
+
+  --color-danger: #d13b3b;
+  --color-danger-bg: #fbe7e7;
+  --color-success: #129a6e;
+  --color-success-bg: #e2f4ee;
+  --color-muted-bg: #e9edf1;
+
+  --radius-sm: 3px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+  --radius-pill: 2px;
+
+  --shadow-card: 0 1px 2px rgba(15, 20, 25, 0.08);
+  --shadow-pop: 0 24px 60px -18px rgba(15, 20, 25, 0.35), 0 4px 12px rgba(15, 20, 25, 0.12);
+  --focus-ring: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-primary);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-theme-template='tech']:not([data-theme='light']) {
+    --color-bg: #0b0d10;
+    --color-surface: #12151a;
+    --color-surface-sunken: #181c22;
+    --color-text: #e8edf4;
+    --color-text-muted: #8a94a3;
+    --color-border: #242a33;
+    --color-border-strong: #e8edf4;
+
+    --color-primary: #4d90ff;
+    --color-primary-dark: #6fa6ff;
+    --color-primary-contrast: #06101f;
+
+    --color-accent: #33c9e0;
+    --color-accent-dark: #57d5e8;
+
+    --color-live: #ff5f5f;
+    --color-live-strong: #ff5f5f;
+    --color-live-bg: rgba(255, 95, 95, 0.14);
+
+    --color-up: #2fd39a;
+    --color-up-bg: rgba(47, 211, 154, 0.14);
+
+    --color-gold: #d8b45a;
+    --color-gold-bg: rgba(216, 180, 90, 0.14);
+
+    --color-danger: #ff6b6b;
+    --color-danger-bg: rgba(255, 107, 107, 0.14);
+    --color-success: #2fd39a;
+    --color-success-bg: rgba(47, 211, 154, 0.14);
+    --color-muted-bg: #181c22;
+
+    --shadow-pop: 0 24px 70px -16px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(77, 144, 255, 0.15);
+  }
+}
+
+:root[data-theme-template='tech'][data-theme='dark'] {
+  --color-bg: #0b0d10;
+  --color-surface: #12151a;
+  --color-surface-sunken: #181c22;
+  --color-text: #e8edf4;
+  --color-text-muted: #8a94a3;
+  --color-border: #242a33;
+  --color-border-strong: #e8edf4;
+
+  --color-primary: #4d90ff;
+  --color-primary-dark: #6fa6ff;
+  --color-primary-contrast: #06101f;
+
+  --color-accent: #33c9e0;
+  --color-accent-dark: #57d5e8;
+
+  --color-live: #ff5f5f;
+  --color-live-strong: #ff5f5f;
+  --color-live-bg: rgba(255, 95, 95, 0.14);
+
+  --color-up: #2fd39a;
+  --color-up-bg: rgba(47, 211, 154, 0.14);
+
+  --color-gold: #d8b45a;
+  --color-gold-bg: rgba(216, 180, 90, 0.14);
+
+  --color-danger: #ff6b6b;
+  --color-danger-bg: rgba(255, 107, 107, 0.14);
+  --color-success: #2fd39a;
+  --color-success-bg: rgba(47, 211, 154, 0.14);
+  --color-muted-bg: #181c22;
+
+  --shadow-pop: 0 24px 70px -16px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(77, 144, 255, 0.15);
+}
+
+/* ==========================================================================
+   Template: autoparts  - garage catalogue: steel grey, safety orange, heavy
+   borders, hard offset shadow, zero radius.
+   ========================================================================== */
+:root[data-theme-template='autoparts'] {
+  --font-display: 'Oswald', 'Arial Narrow', 'Impact', system-ui, sans-serif;
+  --font-heading: 'Oswald', 'Impact', system-ui, sans-serif;
+  --font-body: 'Barlow', 'Segoe UI', system-ui, sans-serif;
+
+  --color-bg: #f2f2f0;
+  --color-surface: #ffffff;
+  --color-surface-sunken: #e6e6e2;
+  --color-text: #1a1a1a;
+  --color-text-muted: #5c5c5c;
+  --color-border: #d4d4ce;
+  --color-border-strong: #1a1a1a;
+
+  --color-primary: #2b2b2b;
+  --color-primary-dark: #000000;
+  --color-primary-contrast: #ffffff;
+
+  --color-accent: #f25c05;
+  --color-accent-dark: #c44803;
+
+  --color-live: #f25c05;
+  --color-live-strong: #f25c05;
+  --color-live-bg: #fde8db;
+
+  --color-up: #2f7d32;
+  --color-up-bg: #e4efe4;
+
+  --color-gold: #b58a1a;
+  --color-gold-bg: #f4ecd6;
+
+  --color-danger: #cc3311;
+  --color-danger-bg: #fbe4de;
+  --color-success: #2f7d32;
+  --color-success-bg: #e4efe4;
+  --color-muted-bg: #e6e6e2;
+
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-pill: 0px;
+
+  --shadow-card: none;
+  --shadow-pop: 5px 5px 0 0 #1a1a1a;
+  --focus-ring: 0 0 0 2px #ffffff, 0 0 0 4px #f25c05;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-theme-template='autoparts']:not([data-theme='light']) {
+    --color-bg: #111111;
+    --color-surface: #1a1a1a;
+    --color-surface-sunken: #232323;
+    --color-text: #f0f0f0;
+    --color-text-muted: #9a9a9a;
+    --color-border: #333333;
+    --color-border-strong: #f0f0f0;
+
+    --color-primary: #f0f0f0;
+    --color-primary-dark: #ffffff;
+    --color-primary-contrast: #111111;
+
+    --color-accent: #ff7a2e;
+    --color-accent-dark: #ff934f;
+
+    --color-live: #ff7a2e;
+    --color-live-strong: #ff7a2e;
+    --color-live-bg: rgba(255, 122, 46, 0.16);
+
+    --color-up: #4fb254;
+    --color-up-bg: rgba(79, 178, 84, 0.16);
+
+    --color-gold: #d8b04a;
+    --color-gold-bg: rgba(216, 176, 74, 0.16);
+
+    --color-danger: #ff5a3c;
+    --color-danger-bg: rgba(255, 90, 60, 0.16);
+    --color-success: #4fb254;
+    --color-success-bg: rgba(79, 178, 84, 0.16);
+    --color-muted-bg: #232323;
+
+    --shadow-pop: 5px 5px 0 0 #f0f0f0;
+    --focus-ring: 0 0 0 2px #111111, 0 0 0 4px #ff7a2e;
+  }
+}
+
+:root[data-theme-template='autoparts'][data-theme='dark'] {
+  --color-bg: #111111;
+  --color-surface: #1a1a1a;
+  --color-surface-sunken: #232323;
+  --color-text: #f0f0f0;
+  --color-text-muted: #9a9a9a;
+  --color-border: #333333;
+  --color-border-strong: #f0f0f0;
+
+  --color-primary: #f0f0f0;
+  --color-primary-dark: #ffffff;
+  --color-primary-contrast: #111111;
+
+  --color-accent: #ff7a2e;
+  --color-accent-dark: #ff934f;
+
+  --color-live: #ff7a2e;
+  --color-live-strong: #ff7a2e;
+  --color-live-bg: rgba(255, 122, 46, 0.16);
+
+  --color-up: #4fb254;
+  --color-up-bg: rgba(79, 178, 84, 0.16);
+
+  --color-gold: #d8b04a;
+  --color-gold-bg: rgba(216, 176, 74, 0.16);
+
+  --color-danger: #ff5a3c;
+  --color-danger-bg: rgba(255, 90, 60, 0.16);
+  --color-success: #4fb254;
+  --color-success-bg: rgba(79, 178, 84, 0.16);
+  --color-muted-bg: #232323;
+
+  --shadow-pop: 5px 5px 0 0 #f0f0f0;
+  --focus-ring: 0 0 0 2px #111111, 0 0 0 4px #ff7a2e;
+}
+
+/* ==========================================================================
+   Template: hobby  - craft & model store: kraft paper, forest green + brick,
+   mustard, gently rounded, soft shadow.
+   ========================================================================== */
+:root[data-theme-template='hobby'] {
+  --font-display: 'Zilla Slab', 'Rockwell', 'Georgia', serif;
+  --font-heading: 'Zilla Slab', 'Rockwell', serif;
+  --font-body: 'Karla', 'Segoe UI', system-ui, sans-serif;
+
+  --color-bg: #f8f3e9;
+  --color-surface: #fffdf7;
+  --color-surface-sunken: #eee3cd;
+  --color-text: #2e2419;
+  --color-text-muted: #6e6150;
+  --color-border: #e4d8c2;
+  --color-border-strong: #2e2419;
+
+  --color-primary: #2f6b46;
+  --color-primary-dark: #204d33;
+  --color-primary-contrast: #ffffff;
+
+  --color-accent: #c1502e;
+  --color-accent-dark: #9c3f22;
+
+  --color-live: #c1502e;
+  --color-live-strong: #d3603c;
+  --color-live-bg: #f8e6df;
+
+  --color-up: #3f7d3f;
+  --color-up-bg: #e6efe1;
+
+  --color-gold: #c99a2e;
+  --color-gold-bg: #f6eed6;
+
+  --color-danger: #bf3b2a;
+  --color-danger-bg: #f8e2dc;
+  --color-success: #3f7d3f;
+  --color-success-bg: #e6efe1;
+  --color-muted-bg: #eee3cd;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-pill: 999px;
+
+  --shadow-card: 0 2px 8px rgba(46, 36, 25, 0.09);
+  --shadow-pop: 0 20px 44px -12px rgba(46, 36, 25, 0.26);
+  --focus-ring: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-primary);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-theme-template='hobby']:not([data-theme='light']) {
+    --color-bg: #14110c;
+    --color-surface: #1e1a12;
+    --color-surface-sunken: #282217;
+    --color-text: #f1e9d8;
+    --color-text-muted: #ada08a;
+    --color-border: #362f22;
+    --color-border-strong: #f1e9d8;
+
+    --color-primary: #5bb47e;
+    --color-primary-dark: #7cc899;
+    --color-primary-contrast: #08160e;
+
+    --color-accent: #e0794f;
+    --color-accent-dark: #ec9670;
+
+    --color-live: #e8785a;
+    --color-live-strong: #e8785a;
+    --color-live-bg: rgba(232, 120, 90, 0.15);
+
+    --color-up: #63b463;
+    --color-up-bg: rgba(99, 180, 99, 0.15);
+
+    --color-gold: #e0b45a;
+    --color-gold-bg: rgba(224, 180, 90, 0.15);
+
+    --color-danger: #f0836a;
+    --color-danger-bg: rgba(240, 131, 106, 0.15);
+    --color-success: #63b463;
+    --color-success-bg: rgba(99, 180, 99, 0.15);
+    --color-muted-bg: #282217;
+
+    --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.4);
+    --shadow-pop: 0 22px 50px -14px rgba(0, 0, 0, 0.6);
+  }
+}
+
+:root[data-theme-template='hobby'][data-theme='dark'] {
+  --color-bg: #14110c;
+  --color-surface: #1e1a12;
+  --color-surface-sunken: #282217;
+  --color-text: #f1e9d8;
+  --color-text-muted: #ada08a;
+  --color-border: #362f22;
+  --color-border-strong: #f1e9d8;
+
+  --color-primary: #5bb47e;
+  --color-primary-dark: #7cc899;
+  --color-primary-contrast: #08160e;
+
+  --color-accent: #e0794f;
+  --color-accent-dark: #ec9670;
+
+  --color-live: #e8785a;
+  --color-live-strong: #e8785a;
+  --color-live-bg: rgba(232, 120, 90, 0.15);
+
+  --color-up: #63b463;
+  --color-up-bg: rgba(99, 180, 99, 0.15);
+
+  --color-gold: #e0b45a;
+  --color-gold-bg: rgba(224, 180, 90, 0.15);
+
+  --color-danger: #f0836a;
+  --color-danger-bg: rgba(240, 131, 106, 0.15);
+  --color-success: #63b463;
+  --color-success-bg: rgba(99, 180, 99, 0.15);
+  --color-muted-bg: #282217;
+
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-pop: 0 22px 50px -14px rgba(0, 0, 0, 0.6);
+}

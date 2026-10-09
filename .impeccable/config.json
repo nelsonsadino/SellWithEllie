@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "client/src/styles/theme.css"
+        ],
+        "createdAt": "2026-09-23T13:39:15.625Z",
+        "reason": "false positive: .raffle-race-water::before is a top-edge water-depth shadow gradient for the duck-race pond illustration, not a card border/accent"
+      }
+    ]
+  }
+}

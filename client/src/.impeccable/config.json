@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "src/styles/theme.css"
+        ],
+        "createdAt": "2026-09-27T08:25:26.391Z",
+        "reason": "L2459 .raffle-race-water::before is a horizontal top-edge shadow gradient on a duck-race water illustration, not a colored side-border on a card; false positive, verified by reading the rule"
+      }
+    ]
+  }
+}

@@ -1,0 +1,9 @@
+/* Self-hosted display face for the marketstall ("Specimen Cabinet") template.
+   Latin subset only - this deployment serves English copy. */
+@font-face {
+  font-family: 'Prata';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/prata-latin-400.woff2') format('woff2');
+}
